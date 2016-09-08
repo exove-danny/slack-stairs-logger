@@ -17,8 +17,8 @@ mysqli_select_db($conn, $config['db_name']);
 
 // run the script only if the $_POST array is set and the Slack secret is correct
 if($_POST && $_POST['token'] == $config['slack_secret']){
-  $username = trim(strtolower($_POST['user_name']));
-  $command = trim(strtolower($_POST['text']));
+  $username = filter_var(trim(strtolower($_POST['user_name'])), FILTER_SANITIZE_STRING);
+  $command = filter_var(trim(strtolower($_POST['text'])), FILTER_SANITIZE_STRING);
 
   if($command == "log"){
     // try to log the entry to the database
